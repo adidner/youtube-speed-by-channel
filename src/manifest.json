@@ -1,0 +1,6 @@
+{
+    "manifest_version": 3,
+    "name": "Youtube Speed by Channel",
+    "description": "Sets the speed of youtube videos based on Channel",
+    "version": "1.0.0"
+}
