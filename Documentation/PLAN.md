@@ -24,8 +24,18 @@ Steps to work through
     - https://github.com/igrigorik/videospeed
     - https://chrome.google.com/webstore/detail/custom-youtube-speed/hjemikpikabiolgbpbdlgeccljdfdicf/related?hl=en
     - https://github.com/elunico/custom-youtube-speed/blob/master/chrome/custom-youtube-speed/manifest.json
-- [ ] Write logical proof of concept (set speed based on hard coded params and checking against title)
-- [ ] Create frontend to match design
-- [ ] Integrate frontend and backend
+- [ ] Write code progressively
+    - [X] On Browser init, set to some arbitrary speed 
+    - [-] Now similar but different if title, video name or description is part of an array. 
+        - [X] Query is good and working 
+        - [X] But I'm having trouble loading content at the right time https://stackoverflow.com/questions/63621540/document-queryselector-returns-null-until-element-is-inspected-using-devtools && https://www.reddit.com/r/learnjavascript/comments/5xtl28/why_does_documentqueryselector_return_null_in_my/
+        - [X] Need to play more with mutation observers as a solution as it seems the content is not initially their
+    - [] Make query selectors for Description and title as well
+    - [] Make default/initial structure for popup.html
+    - [] Make js re-creation so I can add more rows and such and get that working with buttons in popup
+    - [] Save data from popup on popup close
+    - [] load data to popup on popup open
+    - [] on popup close re-run background script to apply changes to open windows
+    - [] make communication between frontend and backend via chrome messages so I can apply backend code based on black list from frontend
 - [ ] Create icons and put into form
 - [ ] Research publishing Chrome Extensions 
