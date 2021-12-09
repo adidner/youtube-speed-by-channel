@@ -24,9 +24,9 @@ Steps to work through
     - https://github.com/igrigorik/videospeed
     - https://chrome.google.com/webstore/detail/custom-youtube-speed/hjemikpikabiolgbpbdlgeccljdfdicf/related?hl=en
     - https://github.com/elunico/custom-youtube-speed/blob/master/chrome/custom-youtube-speed/manifest.json
-- [ ] Write code progressively
+- [-] Write code progressively
     - [X] On Browser init, set to some arbitrary speed 
-    - [-] Now similar but different if title, video name or description is part of an array. 
+    - [X] Now similar but different if title, video name or description is part of an array. 
         - [X] Query is good and working 
         - [X] But I'm having trouble loading content at the right time https://stackoverflow.com/questions/63621540/document-queryselector-returns-null-until-element-is-inspected-using-devtools && https://www.reddit.com/r/learnjavascript/comments/5xtl28/why_does_documentqueryselector_return_null_in_my/
         - [X] Need to play more with mutation observers as a solution as it seems the content is not initially their
