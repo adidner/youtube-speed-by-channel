@@ -30,8 +30,8 @@ Steps to work through
         - [X] Query is good and working 
         - [X] But I'm having trouble loading content at the right time https://stackoverflow.com/questions/63621540/document-queryselector-returns-null-until-element-is-inspected-using-devtools && https://www.reddit.com/r/learnjavascript/comments/5xtl28/why_does_documentqueryselector_return_null_in_my/
         - [X] Need to play more with mutation observers as a solution as it seems the content is not initially their
-    - [] Make query selectors for Description and title as well
-    - [] Make default/initial structure for popup.html
+    - [X] Make query selectors for Description and title as well -> we're gonna not do description for now potentially in the future, currently feel unecessary
+    - [-] Make default/initial structure for popup.html
     - [] Make js re-creation so I can add more rows and such and get that working with buttons in popup
     - [] Save data from popup on popup close
     - [] load data to popup on popup open
