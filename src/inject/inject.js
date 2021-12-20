@@ -40,13 +40,16 @@ function matchesChannelName(channelNameToDisallow){
     console.log("after set speed");
 }
 
-// function matchesDescription(){
 
-// }
-
-// function matchesTitle(){
-
-// }
+function matchesTitle(videoTitleToDisallow){
+    console.log("in function", document.querySelector("h1.title.ytd-video-primary-info-renderer"));
+    let videoTitleOnPage = document.querySelector("h1.title.ytd-video-primary-info-renderer").innerText;
+    if(videoTitleOnPage != null && videoTitleOnPage.includes(videoTitleToDisallow)){
+        setVideoSpeed(1.5);
+        console.log("set speed");
+    }
+    console.log("after set speed");
+}
 
 
 let documentObserver = new MutationObserver(function (mutations, observer) {
@@ -59,7 +62,8 @@ let documentObserver = new MutationObserver(function (mutations, observer) {
             switch (mutation.type) {
             case "childList":
                 if(document.querySelector("yt-formatted-string[title].ytd-channel-name")){// use all 3 queries to make sure we have an entire video page loaded? Some other metric? We need to make sure we're watching a video
-                    matchesChannelName("Tulok");
+                    // matchesChannelName("Tulok");
+                    // matchesTitle("D&D");
                     observer.disconnect();
                 }
                 break;
