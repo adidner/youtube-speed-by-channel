@@ -2,7 +2,7 @@
 .content-column {
     display: flex;
     flex-direction: column;
-    margin: 6px 12px;
+    margin: 12px 12px;
 }
 
 .row {
@@ -22,4 +22,13 @@
     text-align: center;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     display: inline-block;
+}
+
+.title-input {
+    margin: 2px 10px;
+}
+
+.delete-row-button {
+    display: flex;
+    align-items: center;
 }
