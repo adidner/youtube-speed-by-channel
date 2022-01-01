@@ -33,10 +33,13 @@ Steps to work through
     - [X] Make query selectors for Description and title as well -> we're gonna not do description for now potentially in the future, currently feel unecessary
     - [X] Make default/initial structure for popup.html
     - [X] Make js re-creation so I can add more rows and such and get that working with buttons in popup
-    - [] Make similar logic to the adding content row section so that I can add content columns as well
-    - [] Save data from popup on popup close
-    - [] load data to popup on popup open
+    - [X] Make similar logic to the adding content row section so that I can add content columns as well
+    - [] Add a button for deleting content columns
+    - [] Save data content and shape from popup on popup close 
+    - [] load data content and shape to popup on popup open
     - [] on popup close re-run background script to apply changes to open windows
     - [] make communication between frontend and backend via chrome messages so I can apply backend code based on black list from frontend
-- [ ] Create icons and put into form
-- [ ] Research publishing Chrome Extensions 
+- [] Research publishing Chrome Extensions 
+
+Extra
+- [] Make it perty 
