@@ -34,10 +34,10 @@ Steps to work through
     - [X] Make default/initial structure for popup.html
     - [X] Make js re-creation so I can add more rows and such and get that working with buttons in popup
     - [X] Make similar logic to the adding content row section so that I can add content columns as well
-    - [] Add a button for deleting content columns
     - [] Save data content and shape from popup on popup close 
     - [] load data content and shape to popup on popup open
-    - [] on popup close re-run background script to apply changes to open windows
+    - [] Add a button for deleting content columns
+    - [] on popup close re-run background script to apply changes to open windows (barring that make an apply changes button or something I guess, or perhaps have it run on every change if thats easy?)
     - [] make communication between frontend and backend via chrome messages so I can apply backend code based on black list from frontend
 - [] Research publishing Chrome Extensions 
 
