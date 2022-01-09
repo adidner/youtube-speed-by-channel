@@ -129,11 +129,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function rehydrateSavedData(){
-        //if we have no saved data, make one column
-        // if(){
-            AddContentColumn();
-        // }
-        // else grab the saved data and populate the structure with it
+        chrome.storage.sync.get(["saveObject"], (data) => {
+            console.log("saveObject", data.saveObject)
+            //if we have no saved data, make one column
+            if(data.saveObject != undefined && data.saveObject.length > 0){
+                console.log("got data");
+            }
+            // else grab the saved data and populate the structure with it
+            else {
+                AddContentColumn();
+                console.log("no data");
+            }
+        })
     } 
 
     // document.querySelector("#add-new-row-button-1").addEventListener("click", AddNewRowButton);
