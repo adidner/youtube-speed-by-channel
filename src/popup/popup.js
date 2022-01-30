@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById(id).remove();
     }
     
-    function AddNewRowButton(targetContentColumnId){
+    function AddNewRowButton(targetContentColumnId, rowDataObject){
         console.log("add new row");
         let numberRows = document.getElementById(targetContentColumnId).childElementCount - 2;
         let newNumberRows = numberRows + 1;
@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
         input.setAttribute("class", "title-input");
         input.setAttribute("placeholder", "set speed for");
         input.setAttribute("id", "input-" + newButtonRowId);
+        input.setAttribute("value", rowDataObject ? rowDataObject.inputValue : "")
         row.appendChild(input);
 
         var select = document.createElement("select");
@@ -37,8 +38,14 @@ document.addEventListener("DOMContentLoaded", function () {
         var optionTitle = document.createElement("option");
         optionTitle.setAttribute("value", "title");
         optionTitle.innerText = "Title";
-        select.appendChild(optionChannel);
-        select.appendChild(optionTitle);
+        if(rowDataObject?.selectValue == "title"){
+            select.appendChild(optionTitle);
+            select.appendChild(optionChannel);
+        }
+        else {
+            select.appendChild(optionChannel);
+            select.appendChild(optionTitle);
+        }
 
         row.appendChild(select);
         
@@ -51,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     
     
-    function AddContentColumn(){
+    function AddContentColumn(ColumnDataObject){
         let contentColumns = document.body.childElementCount - 1;
         let nextId = (contentColumns + 1);
         let newContentColumnId = "content-column-" + nextId;
@@ -70,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var speedInput = document.createElement("input");
         speedInput.setAttribute("type", "number");
         speedInput.setAttribute("id", "speed-input-" + newContentColumnId); 
+        speedInput.setAttribute("value", ColumnDataObject ? ColumnDataObject.speed : "");
         speedRow.appendChild(speedInput);
         
         contentColumn.appendChild(speedRow);
@@ -93,7 +101,9 @@ document.addEventListener("DOMContentLoaded", function () {
             body.children[body.childElementCount]
         );
 
-        AddNewRowButton(newContentColumnId);
+        // AddNewRowButton(newContentColumnId);
+
+        return newContentColumnId;
         
     }
 
@@ -134,6 +144,14 @@ document.addEventListener("DOMContentLoaded", function () {
             //if we have no saved data, make one column
             if(data.saveObject != undefined && data.saveObject.length > 0){
                 console.log("got data");
+
+                data.saveObject.forEach((currentColumn) => {
+                    columnId = AddContentColumn(currentColumn);
+                    currentColumn.rows.forEach((currentRow) => {
+                        AddNewRowButton(columnId, currentRow);
+                    })
+                });
+                
             }
             // else grab the saved data and populate the structure with it
             else {

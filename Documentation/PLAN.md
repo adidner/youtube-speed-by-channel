@@ -40,7 +40,9 @@ Steps to work through
     - [] Add a button for deleting content columns
     - [] on popup close re-run background script to apply changes to open windows (barring that make an apply changes button or something I guess, or perhaps have it run on every change if thats easy?)
     - [] make communication between frontend and backend via chrome messages so I can apply backend code based on black list from frontend
-- [] Research publishing Chrome Extensions 
+- [X] Research publishing Chrome Extensions 
+- [] Art assets
+- [] Publish
 
 Extra
 - [] Make it perty 
