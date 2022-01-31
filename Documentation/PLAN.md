@@ -53,6 +53,8 @@ Extra
 
 Current Context
 
-Dealing with function undefined for possibly working background script stuff
 Need to re-fresh a youtube page to trigger event!!!!!!!!!!!
+
+New idea, use background stuff I have setup now to trigger the logic I have regarding an inject idea. Delete current inject logic and move background.js logic to inject
+
 Look more into events with regards to a good set to listen for so that I have this triggered when appropriate
