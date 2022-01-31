@@ -55,3 +55,4 @@ Current Context
 
 Dealing with function undefined for possibly working background script stuff
 Need to re-fresh a youtube page to trigger event!!!!!!!!!!!
+Look more into events with regards to a good set to listen for so that I have this triggered when appropriate
