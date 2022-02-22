@@ -2,12 +2,11 @@ document.addEventListener("DOMContentLoaded", function () {
     
 
     function DeleteRowButton(id){
-        console.log("delete button", id);
         document.getElementById(id).remove();
     }
     
     function AddNewRowButton(targetContentColumnId, rowDataObject){
-        console.log("add new row");
+
         let numberRows = document.getElementById(targetContentColumnId).childElementCount - 2;
         let newNumberRows = numberRows + 1;
         let newButtonRowId =  newNumberRows + "-" + targetContentColumnId;
@@ -58,8 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     
     
-    function AddContentColumn(ColumnDataObject){
-        let contentColumns = document.body.childElementCount - 1;
+    function AddContentColumn(ColumnDataObject, addBlankRow){
+        let contentColumns = document.getElementById("data-section").childElementCount;
         let nextId = (contentColumns + 1);
         let newContentColumnId = "content-column-" + nextId;
 
@@ -68,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
         contentColumn.setAttribute("class", "content-column");
 
         var speedRow = document.createElement("div");
-        speedRow.setAttribute("class", "row");
+        speedRow.setAttribute("class", "row speed-row");
         
         var speedText = document.createElement("div");
         speedText.innerText = "Speed: ";
@@ -79,6 +78,12 @@ document.addEventListener("DOMContentLoaded", function () {
         speedInput.setAttribute("id", "speed-input-" + newContentColumnId); 
         speedInput.setAttribute("value", ColumnDataObject ? ColumnDataObject.speed : "");
         speedRow.appendChild(speedInput);
+
+        var deleteButton = document.createElement("div");
+        deleteButton.innerText = "Delete";
+        deleteButton.setAttribute("class", "appear-button-like");
+        deleteButton.addEventListener("click", () => deleteContentColumn(nextId - 1)); // -1 becasue ID's start at 1 and index's start at 0
+        speedRow.appendChild(deleteButton);
         
         contentColumn.appendChild(speedRow);
 
@@ -95,29 +100,54 @@ document.addEventListener("DOMContentLoaded", function () {
 
         contentColumn.appendChild(addNewRowButtonContainer);
 
-        var body = document.body;
+        var body = document.getElementById("data-section");
         body.insertBefore(
             contentColumn,
             body.children[body.childElementCount]
         );
 
-        // AddNewRowButton(newContentColumnId);
+        if(addBlankRow){
+            AddNewRowButton(newContentColumnId);
+        }
 
         return newContentColumnId;
         
     }
 
+
+    // Deleting is weird because we rely on things being in sequencial order (1,2,3,4) rather than (1,2,4,5). So it was easiest to 
+    // Delete by index rather than ID and just rehydrate without that element
+    function deleteContentColumn(contentColumnIndex){
+        // document.getElementById(contentColumnIndex).remove();
+        // now we kinda need to fix the hierarchy or else some of our assumtion don't work
+        // Kind of inline with this idea we can probably kill everything and re-hydrate but skipping a certain index
+        // so All we would need to do is make the rehydrate function take a param to skip a certain index
+        
+        saveAndApplyChanges(); // Need to do this so we can rehydrate correctly without deleted data in a minute
+
+        //Remove all the children in the data-section
+        const parent = document.getElementById("data-section");
+        while(parent.firstChild){
+            parent.firstChild.remove();
+        }
+        console.log("contentColumnIndex", contentColumnIndex);
+        rehydrateSavedData(contentColumnIndex);
+
+
+        // Or I guess we can look when adding new conent rows if we have any things in the middle and then add their first
+        // This probably doesn't work because saveAndApplyChanges relies on things being in continuous order, so I'd have to fix that too if I wanted to use this method
+
+    }
+
     function saveAndApplyChanges(){
-        console.log("save and apply");
         let saveObject = [
 
         ];
-        let numberContentSection = document.body.childElementCount - 1;
+        let numberContentSection = document.getElementById("data-section").childElementCount;
         for(let i = 1; i < numberContentSection + 1; i++){    
             contentSectionId = "content-column-" + i;
             contentSection = document.getElementById(contentSectionId);
             let numberRows = contentSection.childElementCount - 2;
-            console.log("numberRows", numberRows);
             let contentSectionObject = {
                 speed: document.getElementById("speed-input-" + "content-column-" + i).value,
                 rows: [
@@ -134,16 +164,28 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             saveObject.push(contentSectionObject);
         }
-        console.log("saveObject", saveObject);
         chrome.storage.sync.set({saveObject: saveObject})
     }
 
-    function rehydrateSavedData(){
+    // This function is primarily for re-creating the UI structure from an object representation stored in memory between session
+    // Recently this function has also been hijacked to help with deleting because of issues where we don't all the elements sequencially (ex 1,2,4,5 when deleting 3) which casues issues with how I've built this
+    function rehydrateSavedData(excludeIndex){
         chrome.storage.sync.get(["saveObject"], (data) => {
-            console.log("saveObject", data.saveObject)
+            
+            console.log("data.saveObject before splice", data.saveObject);
+
+            // Delete excludeIndex for deleting syncing purposes
+            if(excludeIndex && data.saveObject != undefined){
+                data.saveObject.splice(excludeIndex, 1); //TODO: not sure why I can't delete the last row here but it works in all other cases from what I can tell
+                console.log("data.saveObject right after splice ", data.saveObject);
+            }
+
+            
+            
             //if we have no saved data, make one column
             if(data.saveObject != undefined && data.saveObject.length > 0){
-                console.log("got data");
+                
+                console.log("data.saveObject after splice in if", data.saveObject);
 
                 data.saveObject.forEach((currentColumn) => {
                     columnId = AddContentColumn(currentColumn);
@@ -155,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             // else grab the saved data and populate the structure with it
             else {
-                AddContentColumn();
+                AddContentColumn(undefined, true);
                 console.log("no data");
             }
         })
@@ -163,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // document.querySelector("#add-new-row-button-1").addEventListener("click", AddNewRowButton);
     // document.querySelector("#delete-button-1").addEventListener("click", () => DeleteRowButton("row-1"));
-    document.querySelector('#add-content-column').addEventListener("click", () => AddContentColumn());    
+    document.querySelector('#add-content-column').addEventListener("click", () => AddContentColumn(undefined, true));    
     document.querySelector('#save-button').addEventListener("click", () => saveAndApplyChanges());
     rehydrateSavedData();
 });

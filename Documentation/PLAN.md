@@ -40,7 +40,7 @@ Steps to work through
     - [] make communication between frontend and backend via chrome messages so I can apply backend code based on black list from frontend
     - [] on popup close save all my changes (barring that make an apply changes button or something I guess, or perhaps have it run on every change if thats easy?) -> onBlur listener for inputs and select?
     - [] on popup close re-run background script to apply changes to open windows (barring that make an apply changes button or something I guess, or perhaps have it run on every change if thats easy?)
-    - [] Add a button for deleting content columns
+    - [X] Add a button for deleting content columns
     - [] Every save to storage should trigger the function that sets Speed in the likely case you're on a page you want to be a different speed already -> see background onChange handler
 - [X] Research publishing Chrome Extensions 
 - [] Art assets
