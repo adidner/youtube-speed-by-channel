@@ -1,8 +1,5 @@
 console.log("from inject");
 
-
-
-
 function toArray(htmlCollection) {
     return new Array(htmlCollection.length).fill(0).map((ignore, index) => htmlCollection[index]);
 }
@@ -13,17 +10,6 @@ function setVideoSpeed(newSpeed){
         if (video) {
             video.playbackRate = newSpeed;
             console.log(`Set speed to loaded default: ${newSpeed}`);
-            // I'll need this later for communicating between my chrome js files
-            //
-            // chrome.runtime.sendMessage({
-            //     message: 'options-loaded',
-            //     from: 'cys',
-            //     speed: newSpeed
-            // }, function (response) {
-            //     if (response && response.ok) {
-            //         console.log('UI Updated for loaded options');
-            //     }
-            // });
         }
       });
     
@@ -51,33 +37,58 @@ function matchesTitle(videoTitleToDisallow){
     console.log("after set speed");
 }
 
-
-let documentObserver = new MutationObserver(function (mutations, observer) {
-
-
-    // Process the DOM nodes lazily
-    requestIdleCallback(
-        (_) => {
-        mutations.forEach(function (mutation) {
-            switch (mutation.type) {
-            case "childList":
-                if(document.querySelector("yt-formatted-string[title].ytd-channel-name")){// use all 3 queries to make sure we have an entire video page loaded? Some other metric? We need to make sure we're watching a video
-                    // matchesChannelName("Tulok");
-                    // matchesTitle("D&D");
-                    observer.disconnect();
-                }
-                break;
+function setSpeedBasedOnStorage(){
+    console.log("in setSpeedBasedOnStorage")
+    chrome.storage.sync.get(["saveObject"], (data) => {
+    console.log("saved data", data);
+      data.saveObject.forEach((currentColumn) => {
+        currentColumn.rows.forEach((currentRow) => {
+          if(currentRow.selectValue == 'channel'){
+            if(matchesChannelName(currentRow.inputValue)){
+              setVideoSpeed(currentColumn.speed)
             }
-        });
-        },
-        { timeout: 1000 }
-    );
-});
-documentObserver.observe(document, {
-    attributeFilter: ["aria-hidden", "data-focus-method"],
-    childList: true,
-    subtree: true
-});
+          }
+          else if(currentRow.selectValue == 'title'){
+            if(matchesTitle(currentRow.inputValue)){
+              setVideoSpeed(currentColumn.speed)
+            }
+          }
+        })
+      }); 
+    })
+}
+
+
+setSpeedBasedOnStorage();
+
+
+// let documentObserver = new MutationObserver(function (mutations, observer) {
+
+
+//     // Process the DOM nodes lazily
+//     requestIdleCallback(
+//         (_) => {
+//         mutations.forEach(function (mutation) {
+//             switch (mutation.type) {
+//             case "childList":
+//                 if(document.querySelector("yt-formatted-string[title].ytd-channel-name")){// use all 3 queries to make sure we have an entire video page loaded? Some other metric? We need to make sure we're watching a video
+//                     // matchesChannelName("Tulok");
+//                     // matchesTitle("D&D");
+//                     observer.disconnect();
+//                 }
+//                 break;
+//             }
+//         });
+//         },
+//         { timeout: 1000 }
+//     );
+// });
+
+// documentObserver.observe(document, {
+//     attributeFilter: ["aria-hidden", "data-focus-method"],
+//     childList: true,
+//     subtree: true
+// });
 
 
 console.log("ytd-video-owner-renderer", document.querySelector("ytd-video-owner-renderer"))
