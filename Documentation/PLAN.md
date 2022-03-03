@@ -41,6 +41,7 @@ Steps to work through
     - [] on popup close save all my changes (barring that make an apply changes button or something I guess, or perhaps have it run on every change if thats easy?) -> onBlur listener for inputs and select?
     - [] on popup close re-run background script to apply changes to open windows (barring that make an apply changes button or something I guess, or perhaps have it run on every change if thats easy?)
     - [X] Add a button for deleting content columns
+        - [] Bug where we can't delete to 0 for some reason, possibly race condition
     - [] Every save to storage should trigger the function that sets Speed in the likely case you're on a page you want to be a different speed already -> see background onChange handler
 - [X] Research publishing Chrome Extensions 
 - [] Art assets
