@@ -15,26 +15,24 @@ function setVideoSpeed(newSpeed){
     
 }
 
-function matchesChannelName(channelNameToDisallow){
+function matchesChannelName(channelNameToMatch){
     
     console.log("in function", document.querySelector("yt-formatted-string[title].ytd-channel-name"));
     let channelNameOnPage = document.querySelector("yt-formatted-string[title].ytd-channel-name").innerText;
-    if(channelNameOnPage != null && channelNameOnPage.includes(channelNameToDisallow)){
-        setVideoSpeed(1.5);
-        console.log("set speed");
+    if(channelNameOnPage != null && channelNameOnPage.includes(channelNameToMatch)){
+        return true;
     }
-    console.log("after set speed");
+    return false;
 }
 
 
-function matchesTitle(videoTitleToDisallow){
+function matchesTitle(videoTitleToMatch){
     console.log("in function", document.querySelector("h1.title.ytd-video-primary-info-renderer"));
     let videoTitleOnPage = document.querySelector("h1.title.ytd-video-primary-info-renderer").innerText;
-    if(videoTitleOnPage != null && videoTitleOnPage.includes(videoTitleToDisallow)){
-        setVideoSpeed(1.5);
-        console.log("set speed");
+    if(videoTitleOnPage != null && videoTitleOnPage.includes(videoTitleToMatch)){
+        return true;
     }
-    console.log("after set speed");
+    return false;
 }
 
 function setSpeedBasedOnStorage(){
@@ -58,37 +56,32 @@ function setSpeedBasedOnStorage(){
     })
 }
 
-
-setSpeedBasedOnStorage();
-
-
-// let documentObserver = new MutationObserver(function (mutations, observer) {
+let documentObserver = new MutationObserver(function (mutations, observer) {
 
 
-//     // Process the DOM nodes lazily
-//     requestIdleCallback(
-//         (_) => {
-//         mutations.forEach(function (mutation) {
-//             switch (mutation.type) {
-//             case "childList":
-//                 if(document.querySelector("yt-formatted-string[title].ytd-channel-name")){// use all 3 queries to make sure we have an entire video page loaded? Some other metric? We need to make sure we're watching a video
-//                     // matchesChannelName("Tulok");
-//                     // matchesTitle("D&D");
-//                     observer.disconnect();
-//                 }
-//                 break;
-//             }
-//         });
-//         },
-//         { timeout: 1000 }
-//     );
-// });
+    // Process the DOM nodes lazily
+    requestIdleCallback(
+        (_) => {
+        mutations.forEach(function (mutation) {
+            switch (mutation.type) {
+            case "childList":
+                if(document.querySelector("yt-formatted-string[title].ytd-channel-name")){// use all 3 queries to make sure we have an entire video page loaded? Some other metric? We need to make sure we're watching a video
+                    observer.disconnect();
+                    setSpeedBasedOnStorage();
+                }
+                break;
+            }
+        });
+        },
+        { timeout: 500 }
+    );
+});
 
-// documentObserver.observe(document, {
-//     attributeFilter: ["aria-hidden", "data-focus-method"],
-//     childList: true,
-//     subtree: true
-// });
+documentObserver.observe(document, {
+    attributeFilter: ["aria-hidden", "data-focus-method"],
+    childList: true,
+    subtree: true
+});
 
 
 console.log("ytd-video-owner-renderer", document.querySelector("ytd-video-owner-renderer"))

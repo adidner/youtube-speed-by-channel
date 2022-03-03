@@ -37,7 +37,7 @@ Steps to work through
     - [X] Save data content and shape from popup on popup close 
     - [X] load data content and shape to popup on popup open 
         - [X] more specifically probably I probably want to modify the AddNewRowButton and AddContentColumn so they can take initial values for their input and speed respectively and then call them both in a nested for loop fashion as I walk through my saveObject.
-    - [] make communication between frontend and backend via chrome messages so I can apply backend code based on black list from frontend
+    - [X] make communication between frontend and backend via chrome messages so I can apply backend code based on black list from frontend -> this isn't quite what happened. So I can use the manifest to do page navigation triggers for injection scripts so I did that. And in the inject I used the storage sync to grab the data we want and then run  with minor modification
     - [] on popup close save all my changes (barring that make an apply changes button or something I guess, or perhaps have it run on every change if thats easy?) -> onBlur listener for inputs and select?
     - [] on popup close re-run background script to apply changes to open windows (barring that make an apply changes button or something I guess, or perhaps have it run on every change if thats easy?)
     - [X] Add a button for deleting content columns
