@@ -38,11 +38,12 @@ Steps to work through
     - [X] load data content and shape to popup on popup open 
         - [X] more specifically probably I probably want to modify the AddNewRowButton and AddContentColumn so they can take initial values for their input and speed respectively and then call them both in a nested for loop fashion as I walk through my saveObject.
     - [X] make communication between frontend and backend via chrome messages so I can apply backend code based on black list from frontend -> this isn't quite what happened. So I can use the manifest to do page navigation triggers for injection scripts so I did that. And in the inject I used the storage sync to grab the data we want and then run  with minor modification
-    - [] on popup close save all my changes (barring that make an apply changes button or something I guess, or perhaps have it run on every change if thats easy?) -> onBlur listener for inputs and select?
     - [] on popup close re-run background script to apply changes to open windows (barring that make an apply changes button or something I guess, or perhaps have it run on every change if thats easy?)
+        - [X] on popup close save all my changes (barring that make an apply changes button or something I guess, or perhaps have it run on every change if thats easy?) -> onBlur listener for inputs and select? -> uneeded because of how everything should save every time anything is changed. 
     - [X] Add a button for deleting content columns
         - [] Bug where we can't delete to 0 for some reason, possibly race condition
     - [] Every save to storage should trigger the function that sets Speed in the likely case you're on a page you want to be a different speed already -> see background onChange handler
+    - [] I want to display current speed of youtube channel and now the modififed video time next to the total time for the video via injection as well. 
 - [X] Research publishing Chrome Extensions 
 - [] Art assets
 - [] Publish
@@ -54,8 +55,28 @@ Extra
 
 Current Context
 
-Need to re-fresh a youtube page to trigger event!!!!!!!!!!!
+It seems like we can't get background JS to wake up when we need it to be awake which is all the time or at least from the get go. 
 
-New idea, use background stuff I have setup now to trigger the logic I have regarding an inject idea. Delete current inject logic and move background.js logic to inject
+If we do teh manifest direct version via the 
 
-Look more into events with regards to a good set to listen for so that I have this triggered when appropriate
+"content_scripts": [
+        {
+            "matches": [
+                "https://www.youtube.com/*",
+                "https://youtu.be/*",
+                "https://www.youtube.com/watch*"
+            ],
+            "js": [
+                "inject/inject.js"
+            ],
+            "css": [
+                "inject/inject.css"
+            ],
+            "all_frames": true,
+            "run_at": "document_end"
+        }
+    ]
+
+It doesn't do well with internal navigation
+
+Guess I should look more into how the other guy is actually setting his default speed for videos via content scripts and see if I can do something similar for my stuff. 

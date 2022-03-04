@@ -4,21 +4,28 @@ function toArray(htmlCollection) {
     return new Array(htmlCollection.length).fill(0).map((ignore, index) => htmlCollection[index]);
 }
 
-function setVideoSpeed(newSpeed){
+function setVideoSpeed(newSpeed, intervalID){ // We're passing interval ID to clear the interval if we've already set the video (this is bad because we're just trying to set the speed with an interval until we've already set it but shrug)
 
     toArray(document.getElementsByTagName('video')).map((video) => {
+        
+        if(video && video.playbackRate == newSpeed){
+            clearInterval(intervalID)
+        }
         if (video) {
             video.playbackRate = newSpeed;
             console.log(`Set speed to loaded default: ${newSpeed}`);
         }
-      });
+        
+    });
     
 }
 
 function matchesChannelName(channelNameToMatch){
+    // console.log("in function", document.querySelector("yt-formatted-string[title].ytd-channel-name"));
+    // let channelNameOnPage = document.querySelector("yt-formatted-string[title].ytd-channel-name").innerText;
+    let channelNameOnPage = document.querySelector("ytd-video-owner-renderer").querySelector("ytd-channel-name").querySelector("a").innerText;
     
-    console.log("in function", document.querySelector("yt-formatted-string[title].ytd-channel-name"));
-    let channelNameOnPage = document.querySelector("yt-formatted-string[title].ytd-channel-name").innerText;
+    console.log("channel query: ", document.querySelector("ytd-video-owner-renderer").querySelector("ytd-channel-name").querySelector("a").innerText)
     if(channelNameOnPage != null && channelNameOnPage.includes(channelNameToMatch)){
         return true;
     }
@@ -27,7 +34,7 @@ function matchesChannelName(channelNameToMatch){
 
 
 function matchesTitle(videoTitleToMatch){
-    console.log("in function", document.querySelector("h1.title.ytd-video-primary-info-renderer"));
+    // console.log("in function", document.querySelector("h1.title.ytd-video-primary-info-renderer"));
     let videoTitleOnPage = document.querySelector("h1.title.ytd-video-primary-info-renderer").innerText;
     if(videoTitleOnPage != null && videoTitleOnPage.includes(videoTitleToMatch)){
         return true;
@@ -35,7 +42,7 @@ function matchesTitle(videoTitleToMatch){
     return false;
 }
 
-function setSpeedBasedOnStorage(){
+function setSpeedBasedOnStorage(intervalID){// We're passing interval ID to clear the interval if we've already set the video (this is bad because we're just trying to set the speed with an interval until we've already set it but shrug)
     console.log("in setSpeedBasedOnStorage")
     chrome.storage.sync.get(["saveObject"], (data) => {
     console.log("saved data", data);
@@ -43,12 +50,12 @@ function setSpeedBasedOnStorage(){
         currentColumn.rows.forEach((currentRow) => {
           if(currentRow.selectValue == 'channel'){
             if(matchesChannelName(currentRow.inputValue)){
-              setVideoSpeed(currentColumn.speed)
+              setVideoSpeed(currentColumn.speed, intervalID)
             }
           }
           else if(currentRow.selectValue == 'title'){
             if(matchesTitle(currentRow.inputValue)){
-              setVideoSpeed(currentColumn.speed)
+              setVideoSpeed(currentColumn.speed, intervalID)
             }
           }
         })
@@ -56,35 +63,13 @@ function setSpeedBasedOnStorage(){
     })
 }
 
-let documentObserver = new MutationObserver(function (mutations, observer) {
+
+var intervalID = setInterval(function() {
+    setSpeedBasedOnStorage(intervalID);
+}, 500)
 
 
-    // Process the DOM nodes lazily
-    requestIdleCallback(
-        (_) => {
-        mutations.forEach(function (mutation) {
-            switch (mutation.type) {
-            case "childList":
-                if(document.querySelector("yt-formatted-string[title].ytd-channel-name")){// use all 3 queries to make sure we have an entire video page loaded? Some other metric? We need to make sure we're watching a video
-                    observer.disconnect();
-                    setSpeedBasedOnStorage();
-                }
-                break;
-            }
-        });
-        },
-        { timeout: 500 }
-    );
-});
 
-documentObserver.observe(document, {
-    attributeFilter: ["aria-hidden", "data-focus-method"],
-    childList: true,
-    subtree: true
-});
-
-
-console.log("ytd-video-owner-renderer", document.querySelector("ytd-video-owner-renderer"))
 console.log("after inject");
 
 
