@@ -9,7 +9,7 @@ function setVideoSpeed(newSpeed, intervalID){ // We're passing interval ID to cl
     toArray(document.getElementsByTagName('video')).map((video) => {
         
         if(video && video.playbackRate == newSpeed){
-            clearInterval(intervalID)
+            clearInterval(intervalID);
         }
         if (video) {
             video.playbackRate = newSpeed;
@@ -63,10 +63,20 @@ function setSpeedBasedOnStorage(intervalID){// We're passing interval ID to clea
     })
 }
 
-
+// Uncomment this to make the inject section run
 var intervalID = setInterval(function() {
     setSpeedBasedOnStorage(intervalID);
-}, 500)
+}, 500);
+
+
+// if we can't set the speed in 5 seconds, kill self because we don't want to waste resources 
+setInterval(
+  function () {
+    clearInterval(intervalID)
+  }, 
+  5000
+)
+
 
 
 

@@ -80,3 +80,11 @@ If we do teh manifest direct version via the
 It doesn't do well with internal navigation
 
 Guess I should look more into how the other guy is actually setting his default speed for videos via content scripts and see if I can do something similar for my stuff. 
+
+
+
+If for some reason we want the background script to be alive again add this code back into manifest.json
+
+"background": {
+        "service_worker": "background.js"
+    },
