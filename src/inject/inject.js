@@ -69,12 +69,12 @@ var intervalID = setInterval(function() {
 }, 500);
 
 
-// if we can't set the speed in 5 seconds, kill self because we don't want to waste resources 
+// if we can't set the speed in 3 seconds, kill self because we don't want to waste resources 
 setInterval(
   function () {
     clearInterval(intervalID)
   }, 
-  5000
+  3000
 )
 
 

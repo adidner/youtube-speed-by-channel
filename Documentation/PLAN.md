@@ -42,6 +42,9 @@ Steps to work through
         - [X] on popup close save all my changes (barring that make an apply changes button or something I guess, or perhaps have it run on every change if thats easy?) -> onBlur listener for inputs and select? -> uneeded because of how everything should save every time anything is changed. 
     - [X] Add a button for deleting content columns
         - [] Bug where we can't delete to 0 for some reason, possibly race condition
+    - [-] Doesn't start if the youtube chrome extension hasn't been opened
+        - [X] https://developer.chrome.com/docs/extensions/mv2/runtime_host_permissions/
+        - [] Mostly working now? doesn't work when I search and then click on video after already having had something run for some reason? (works the first time)
     - [] Every save to storage should trigger the function that sets Speed in the likely case you're on a page you want to be a different speed already -> see background onChange handler
     - [] I want to display current speed of youtube channel and now the modififed video time next to the total time for the video via injection as well. 
     - [] UI changes (I made the buttons weird and off to the side at some point for some reason, should change that back)
