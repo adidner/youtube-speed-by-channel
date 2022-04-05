@@ -11,12 +11,15 @@ function setVideoSpeed(newSpeed, intervalID){ // We're passing interval ID to cl
         if(video && video.playbackRate == newSpeed){
             clearInterval(intervalID);
         }
-        if (video) {
+        if (video && video.playbackRate != newSpeed) {
             video.playbackRate = newSpeed;
             console.log(`Set speed to loaded default: ${newSpeed}`);
+            
+            setYoutubeTimeDisplay();
         }
         
     });
+
     
 }
 
@@ -50,12 +53,12 @@ function setSpeedBasedOnStorage(intervalID){// We're passing interval ID to clea
         currentColumn.rows.forEach((currentRow) => {
           if(currentRow.selectValue == 'channel'){
             if(matchesChannelName(currentRow.inputValue)){
-              setVideoSpeed(currentColumn.speed, intervalID)
+              setVideoSpeed(currentColumn.speed, intervalID);
             }
           }
           else if(currentRow.selectValue == 'title'){
             if(matchesTitle(currentRow.inputValue)){
-              setVideoSpeed(currentColumn.speed, intervalID)
+              setVideoSpeed(currentColumn.speed, intervalID);
             }
           }
         })
@@ -75,7 +78,53 @@ setInterval(
     clearInterval(intervalID)
   }, 
   3000
-)
+);
+
+
+function millisecondsToTime(milliseconds){
+  let minutes = Math.floor(milliseconds / 60);
+  if(minutes < 10){
+    minutes = "0" + minutes;
+  }
+  let seconds = Math.floor(milliseconds - minutes * 60);
+  if(seconds < 10){
+    seconds = "0" + seconds;
+  }
+  return minutes + ":" + seconds;
+}
+
+
+function setYoutubeTimeDisplay(){
+  let timeContainer = document.querySelector("div.ytp-time-display").children[1];
+  let video = document.getElementsByTagName('video')[0];
+  
+  let newOpenTag = document.createElement("span");
+  newOpenTag.innerText = " (";
+  
+  let newCurrentTime = document.createElement("span");
+  newCurrentTime.id = "newCurrentTime";
+  video.addEventListener("timeupdate", () => {
+    newCurrentTime.innerText = millisecondsToTime(video.currentTime * (1 / video.playbackRate));
+  })
+  // newCurrentTime.innerText = document.getElementsByTagName('video')[0].currentTime;
+  
+  let newSeperator = document.createElement("span");
+  newSeperator.innerText = " / ";
+
+  let newEndTime = document.createElement("span");
+  newEndTime.innerText = millisecondsToTime(video.duration * (1 / video.playbackRate));
+
+  let newCloseTag = document.createElement("span");
+  newCloseTag.innerText = ")";
+
+
+  timeContainer.appendChild(newOpenTag);
+  timeContainer.appendChild(newCurrentTime);
+  timeContainer.appendChild(newSeperator);
+  timeContainer.appendChild(newEndTime);
+  timeContainer.appendChild(newCloseTag);
+}
+
 
 
 
