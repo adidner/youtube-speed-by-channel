@@ -46,7 +46,7 @@ Steps to work through
         - [X] https://developer.chrome.com/docs/extensions/mv2/runtime_host_permissions/
         - [] Mostly working now? doesn't work when I search and then click on video after already having had something run for some reason? (works the first time)
     - [] Every save to storage should trigger the function that sets Speed in the likely case you're on a page you want to be a different speed already -> see background onChange handler
-    - [] I want to display current speed of youtube channel and now the modififed video time next to the total time for the video via injection as well. 
+    - [X] I want to display current speed of youtube channel and now the modififed video time next to the total time for the video via injection as well. 
     - [] UI changes (I made the buttons weird and off to the side at some point for some reason, should change that back)
 - [X] Research publishing Chrome Extensions 
 - [] Art assets
