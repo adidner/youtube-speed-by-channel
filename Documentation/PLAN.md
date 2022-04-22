@@ -49,6 +49,7 @@ Steps to work through
     - [X] I want to display current speed of youtube channel and now the modififed video time next to the total time for the video via injection as well. 
     - [] UI changes (I made the buttons weird and off to the side at some point for some reason, should change that back)
 - [X] Research publishing Chrome Extensions 
+- [X] everything should save every time anything is changed. 
 - [] Art assets
 - [] Publish
 

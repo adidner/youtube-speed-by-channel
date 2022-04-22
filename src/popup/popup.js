@@ -27,7 +27,8 @@ document.addEventListener("DOMContentLoaded", function () {
         input.setAttribute("class", "title-input");
         input.setAttribute("placeholder", "set speed for");
         input.setAttribute("id", "input-" + newButtonRowId);
-        input.setAttribute("value", rowDataObject ? rowDataObject.inputValue : "")
+        input.setAttribute("value", rowDataObject ? rowDataObject.inputValue : "");
+        input.addEventListener("blur", () => saveAndApplyChanges());
         row.appendChild(input);
 
         var select = document.createElement("select");
@@ -77,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
         speedInput.setAttribute("type", "number");
         speedInput.setAttribute("id", "speed-input-" + newContentColumnId); 
         speedInput.setAttribute("value", ColumnDataObject ? ColumnDataObject.speed : "");
+        speedInput.addEventListener("blur", () => saveAndApplyChanges());
         speedRow.appendChild(speedInput);
 
         var deleteButton = document.createElement("div");
@@ -203,10 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     } 
 
-    // document.querySelector("#add-new-row-button-1").addEventListener("click", AddNewRowButton);
-    // document.querySelector("#delete-button-1").addEventListener("click", () => DeleteRowButton("row-1"));
     document.querySelector('#add-content-column').addEventListener("click", () => AddContentColumn(undefined, true));    
-    document.querySelector('#save-button').addEventListener("click", () => saveAndApplyChanges());
     rehydrateSavedData();
 });
   
