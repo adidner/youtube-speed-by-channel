@@ -14,9 +14,6 @@
     flex-direction: row;
 }
 
-.split-row {
-    justify-content: space-between;
-}
 
 .new-row-button {
     justify-content: center;

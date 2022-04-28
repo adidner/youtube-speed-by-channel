@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function DeleteRowButton(id){
         document.getElementById(id).remove();
+        saveAndApplyChanges();
     }
     
     function AddNewRowButton(targetContentColumnId, rowDataObject){
@@ -32,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
         row.appendChild(input);
 
         var select = document.createElement("select");
+        select.setAttribute("id", "select-" + newButtonRowId);
         var optionChannel = document.createElement("option");
         optionChannel.setAttribute("value", "channel");
         optionChannel.innerText = "Channel";
@@ -46,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
             select.appendChild(optionChannel);
             select.appendChild(optionTitle);
         }
-
+        select.addEventListener("change", () => saveAndApplyChanges())
         row.appendChild(select);
         
 
@@ -55,6 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
             row,
             customs_element.children[customs_element.childElementCount - 1]
         );
+
+        saveAndApplyChanges();
     }
     
     
@@ -158,9 +162,10 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             for(let j = 1; j < numberRows + 1; j++){
                 let targetInput = document.getElementById("input-"+ j + "-content-column-" + i);
+                let targetSelect = document.getElementById("select-" + j + "-content-column-" + i);
                 let rowObject = {
                     inputValue: targetInput.value,
-                    selectValue: "channel",
+                    selectValue: targetSelect.value,
                 }
                 contentSectionObject.rows.push(rowObject);
             }

@@ -47,9 +47,16 @@ Steps to work through
         - [] Mostly working now? doesn't work when I search and then click on video after already having had something run for some reason? (works the first time)
     - [] Every save to storage should trigger the function that sets Speed in the likely case you're on a page you want to be a different speed already -> see background onChange handler
     - [X] I want to display current speed of youtube channel and now the modififed video time next to the total time for the video via injection as well. 
-    - [] UI changes (I made the buttons weird and off to the side at some point for some reason, should change that back)
+    - [X] UI changes (I made the buttons weird and off to the side at some point for some reason, should change that back)
 - [X] Research publishing Chrome Extensions 
-- [X] everything should save every time anything is changed. 
+- [-] everything should save every time anything is changed. 
+    - [X] speed text 
+    - [X] row text
+    - [X] delete row 
+    - [X] drop down 
+    - [X] delete content section 
+    - [X] add content section 
+    - [X] add new row
 - [] Art assets
 - [] Publish
 
