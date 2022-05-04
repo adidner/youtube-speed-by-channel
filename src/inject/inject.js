@@ -24,8 +24,6 @@ function setVideoSpeed(newSpeed, intervalID){ // We're passing interval ID to cl
 }
 
 function matchesChannelName(channelNameToMatch){
-    // console.log("in function", document.querySelector("yt-formatted-string[title].ytd-channel-name"));
-    // let channelNameOnPage = document.querySelector("yt-formatted-string[title].ytd-channel-name").innerText;
     let channelNameOnPage = document.querySelector("ytd-video-owner-renderer").querySelector("ytd-channel-name").querySelector("a").innerText;
     
     console.log("channel query: ", document.querySelector("ytd-video-owner-renderer").querySelector("ytd-channel-name").querySelector("a").innerText)
@@ -37,7 +35,6 @@ function matchesChannelName(channelNameToMatch){
 
 
 function matchesTitle(videoTitleToMatch){
-    // console.log("in function", document.querySelector("h1.title.ytd-video-primary-info-renderer"));
     let videoTitleOnPage = document.querySelector("h1.title.ytd-video-primary-info-renderer").innerText;
     if(videoTitleOnPage != null && videoTitleOnPage.includes(videoTitleToMatch)){
         return true;
@@ -68,14 +65,18 @@ function setSpeedBasedOnStorage(intervalID){// We're passing interval ID to clea
 
 // Uncomment this to make the inject section run
 var intervalID = setInterval(function() {
+  
+    console.log("🚀 ~ file: inject.js ~ line 71 ~ intervalID ~ SET intervalID", intervalID)
     setSpeedBasedOnStorage(intervalID);
 }, 500);
 
 
 // if we can't set the speed in 3 seconds, kill self because we don't want to waste resources 
-setInterval(
+var killSelfID = setInterval(
   function () {
-    clearInterval(intervalID)
+    clearInterval(intervalID);
+    clearInterval(killSelfID);
+    console.log("🚀 ~ file: inject.js ~ line 78 ~ CLEAR intervalID", intervalID)
   }, 
   3000
 );
@@ -105,8 +106,7 @@ function setYoutubeTimeDisplay(){
   newCurrentTime.id = "newCurrentTime";
   video.addEventListener("timeupdate", () => {
     newCurrentTime.innerText = millisecondsToTime(video.currentTime * (1 / video.playbackRate));
-  })
-  // newCurrentTime.innerText = document.getElementsByTagName('video')[0].currentTime;
+  });
   
   let newSeperator = document.createElement("span");
   newSeperator.innerText = " / ";
@@ -118,11 +118,23 @@ function setYoutubeTimeDisplay(){
   newCloseTag.innerText = ")";
 
 
-  timeContainer.appendChild(newOpenTag);
-  timeContainer.appendChild(newCurrentTime);
-  timeContainer.appendChild(newSeperator);
-  timeContainer.appendChild(newEndTime);
-  timeContainer.appendChild(newCloseTag);
+  
+
+  if(timeContainer.children.length > 3){ // this would mean that we already have injected extra content and we want to override rather than add
+    timeContainer.children[4] = (newOpenTag);
+    timeContainer.children[5] = (newCurrentTime);
+    timeContainer.children[6] = (newSeperator);
+    timeContainer.children[7] = (newEndTime);
+    timeContainer.children[8] = (newCloseTag);
+  }
+  else {
+    timeContainer.appendChild(newOpenTag);
+    timeContainer.appendChild(newCurrentTime);
+    timeContainer.appendChild(newSeperator);
+    timeContainer.appendChild(newEndTime);
+    timeContainer.appendChild(newCloseTag);
+  }
+  
 }
 
 

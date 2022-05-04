@@ -44,12 +44,10 @@ Steps to work through
         - [] Bug where we can't delete to 0 for some reason, possibly race condition
     - [-] Doesn't start if the youtube chrome extension hasn't been opened
         - [X] https://developer.chrome.com/docs/extensions/mv2/runtime_host_permissions/
-        - [] Mostly working now? doesn't work when I search and then click on video after already having had something run for some reason? (works the first time)
-    - [] Every save to storage should trigger the function that sets Speed in the likely case you're on a page you want to be a different speed already -> see background onChange handler
     - [X] I want to display current speed of youtube channel and now the modififed video time next to the total time for the video via injection as well. 
     - [X] UI changes (I made the buttons weird and off to the side at some point for some reason, should change that back)
 - [X] Research publishing Chrome Extensions 
-- [-] everything should save every time anything is changed. 
+- [X] everything should save every time anything is changed. 
     - [X] speed text 
     - [X] row text
     - [X] delete row 
@@ -57,6 +55,12 @@ Steps to work through
     - [X] delete content section 
     - [X] add content section 
     - [X] add new row
+- [X] Bug where getting the video to apply changes isn't always consisent (when navigating from internal pages, multiple videos in a row without a re-fresh ever).
+    - [X] Solved. Looks like my timeout interval didn't die itself which was creating issues. 
+    - [] Sub bug here where it seems (navigating to a video and then to another both of which have times set for them results in both obtaining the same setYoutubeTimeDisplay() as the first video, must fix)
+- [X] Bug where we sometimes get many repeated setYoutubeTimeDisplay() times for the new stuff
+
+- [] Every save to storage should trigger the function that sets Speed in the likely case you're on a page you want to be a different speed already -> see background onChange handler
 - [] Art assets
 - [] Publish
 
