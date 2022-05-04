@@ -120,20 +120,19 @@ function setYoutubeTimeDisplay(){
 
   
 
-  if(timeContainer.children.length > 3){ // this would mean that we already have injected extra content and we want to override rather than add
-    timeContainer.children[4] = (newOpenTag);
-    timeContainer.children[5] = (newCurrentTime);
-    timeContainer.children[6] = (newSeperator);
-    timeContainer.children[7] = (newEndTime);
-    timeContainer.children[8] = (newCloseTag);
+  if(document.getElementById("setYoutubeTimeDisplay")){ // this would mean that we already have injected extra content and we want to override rather than add
+    document.getElementById("setYoutubeTimeDisplay").remove();
   }
-  else {
-    timeContainer.appendChild(newOpenTag);
-    timeContainer.appendChild(newCurrentTime);
-    timeContainer.appendChild(newSeperator);
-    timeContainer.appendChild(newEndTime);
-    timeContainer.appendChild(newCloseTag);
-  }
+  console.log("in append")
+  let spanContainer = document.createElement("span");
+  spanContainer.setAttribute("id", "setYoutubeTimeDisplay");
+  spanContainer.appendChild(newOpenTag);
+  spanContainer.appendChild(newCurrentTime);
+  spanContainer.appendChild(newSeperator);
+  spanContainer.appendChild(newEndTime);
+  spanContainer.appendChild(newCloseTag);
+
+  timeContainer.appendChild(spanContainer);
   
 }
 

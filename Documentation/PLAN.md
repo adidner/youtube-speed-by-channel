@@ -57,7 +57,7 @@ Steps to work through
     - [X] add new row
 - [X] Bug where getting the video to apply changes isn't always consisent (when navigating from internal pages, multiple videos in a row without a re-fresh ever).
     - [X] Solved. Looks like my timeout interval didn't die itself which was creating issues. 
-    - [] Sub bug here where it seems (navigating to a video and then to another both of which have times set for them results in both obtaining the same setYoutubeTimeDisplay() as the first video, must fix)
+    - [X] Sub bug here where it seems (navigating to a video and then to another both of which have times set for them results in both obtaining the same setYoutubeTimeDisplay() as the first video, must fix)
 - [X] Bug where we sometimes get many repeated setYoutubeTimeDisplay() times for the new stuff
 
 - [] Every save to storage should trigger the function that sets Speed in the likely case you're on a page you want to be a different speed already -> see background onChange handler
