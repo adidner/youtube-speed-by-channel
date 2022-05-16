@@ -27,7 +27,7 @@ function matchesChannelName(channelNameToMatch){
     let channelNameOnPage = document.querySelector("ytd-video-owner-renderer").querySelector("ytd-channel-name").querySelector("a").innerText;
     
     console.log("channel query: ", document.querySelector("ytd-video-owner-renderer").querySelector("ytd-channel-name").querySelector("a").innerText)
-    if(channelNameOnPage != null && channelNameOnPage.includes(channelNameToMatch)){
+    if(channelNameOnPage != null && (channelNameOnPage.includes(channelNameToMatch) || (channelNameOnPage.toLowerCase()).includes(channelNameToMatch.toLowerCase()))){
         return true;
     }
     return false;
@@ -36,7 +36,7 @@ function matchesChannelName(channelNameToMatch){
 
 function matchesTitle(videoTitleToMatch){
     let videoTitleOnPage = document.querySelector("h1.title.ytd-video-primary-info-renderer").innerText;
-    if(videoTitleOnPage != null && videoTitleOnPage.includes(videoTitleToMatch)){
+    if(videoTitleOnPage != null && (videoTitleOnPage.includes(videoTitleToMatch) || (videoTitleOnPage.toLowerCase().includes(videoTitleToMatch.toLowerCase())) )){
         return true;
     }
     return false;
