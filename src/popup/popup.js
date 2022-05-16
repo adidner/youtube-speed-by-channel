@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         var deleteButton = document.createElement("div");
         deleteButton.setAttribute("id", "delete-button-" + newButtonRowId);
-        deleteButton.setAttribute("class", "delete-row-button appear-button-like");
+        deleteButton.setAttribute("class", "delete-row-button delete-X-button");
         deleteButton.addEventListener("click", () => DeleteRowButton("row-" + newButtonRowId));
         deleteButton.innerText = "X"
         row.appendChild(deleteButton);
@@ -87,8 +87,8 @@ document.addEventListener("DOMContentLoaded", function () {
         speedRow.appendChild(speedInput);
 
         var deleteButton = document.createElement("div");
-        deleteButton.innerText = "Delete";
-        deleteButton.setAttribute("class", "appear-button-like");
+        deleteButton.innerText = "Delete All";
+        deleteButton.setAttribute("class", "appear-button-like red-delete-button");
         deleteButton.addEventListener("click", () => deleteContentColumn(nextId - 1)); // -1 becasue ID's start at 1 and index's start at 0
         speedRow.appendChild(deleteButton);
         
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
         addNewRowButtonContainer.setAttribute("id","add-new-row-button")
         addNewRowButtonContainer.setAttribute("class","new-row-button")
         var addNewRowButtonButton = document.createElement("div");
-        addNewRowButtonButton.setAttribute("class","appear-button-like")
+        addNewRowButtonButton.setAttribute("class","appear-button-like primary-blue-button")
         addNewRowButtonButton.innerText = "Add New Row";
         addNewRowButtonButton.addEventListener("click", () => AddNewRowButton(newContentColumnId));
         
