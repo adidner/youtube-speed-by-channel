@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
         speedRow.setAttribute("class", "row speed-row");
         
         var speedText = document.createElement("div");
+        speedText.setAttribute("class", "speed-text");
         speedText.innerText = "Speed: ";
         speedRow.appendChild(speedText);
         
