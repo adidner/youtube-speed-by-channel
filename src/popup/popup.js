@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
         speedInput.setAttribute("type", "number");
         speedInput.setAttribute("id", "speed-input-" + newContentColumnId); 
         speedInput.setAttribute("value", ColumnDataObject ? ColumnDataObject.speed : "");
+        speedInput.setAttribute("class", "speed-input")
         speedInput.addEventListener("blur", () => saveAndApplyChanges());
         speedRow.appendChild(speedInput);
 
