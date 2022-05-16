@@ -59,7 +59,7 @@ Steps to work through
     - [X] Solved. Looks like my timeout interval didn't die itself which was creating issues. 
     - [X] Sub bug here where it seems (navigating to a video and then to another both of which have times set for them results in both obtaining the same setYoutubeTimeDisplay() as the first video, must fix)
 - [X] Bug where we sometimes get many repeated setYoutubeTimeDisplay() times for the new stuff
-- [] Delete row not working again? (specifically deleting rows in the middle not working)
+- [X] Delete row not working again? (specifically deleting rows in the middle not working)
 - [X] Case insensitivity
 - [] injection of text part not working consistently
 - [] pretty ifying
