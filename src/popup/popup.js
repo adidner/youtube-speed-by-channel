@@ -150,8 +150,8 @@ document.addEventListener("DOMContentLoaded", function () {
         let saveObject = [
 
         ];
-        let numberContentSection = document.getElementById("data-section").childElementCount;
-        for(let i = 1; i < numberContentSection + 1; i++){    
+        let numberContentSection = document.getElementById("data-section").childElementCount + 1;
+        for(let i = 1; i < numberContentSection; i++){ 
             contentSectionId = "content-column-" + i;
             contentSection = document.getElementById(contentSectionId);
             let numberRows = contentSection.childElementCount - 2;
@@ -161,18 +161,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 ],
             }
-            for(let j = 1; j < numberRows + 1; j++){
+            for(let j = 1; j < numberRows + 2; j++){ //when we delete a value in the system there is now a gap in the numbers (example we have 1, 2, 3, 4 -> we delete 2. This system sees the number of rows at 3 total (1, 3, 4) and then it looks for sequential values of 1, 2, 3). To compenstate when we add to the total number of rows so it looks for (1,2,3,4) sequentially
                 let targetInput = document.getElementById("input-"+ j + "-content-column-" + i);
                 let targetSelect = document.getElementById("select-" + j + "-content-column-" + i);
-                let rowObject = {
-                    inputValue: targetInput.value,
-                    selectValue: targetSelect.value,
+                if(targetInput != null && targetSelect != null){
+                    let rowObject = {
+                        inputValue: targetInput.value,
+                        selectValue: targetSelect.value,
+                    }
+                    contentSectionObject.rows.push(rowObject);
                 }
-                contentSectionObject.rows.push(rowObject);
             }
             saveObject.push(contentSectionObject);
         }
-        chrome.storage.sync.set({saveObject: saveObject})
+        console.log("saveObject: ", saveObject);
+        chrome.storage.sync.set({saveObject: saveObject});
     }
 
     // This function is primarily for re-creating the UI structure from an object representation stored in memory between session
