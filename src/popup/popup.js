@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
         speedRow.appendChild(speedInput);
 
         var deleteButton = document.createElement("div");
-        deleteButton.innerText = "Delete All";
+        deleteButton.innerText = "Delete Section";
         deleteButton.setAttribute("class", "appear-button-like red-delete-button");
         deleteButton.addEventListener("click", () => deleteContentColumn(nextId - 1)); // -1 becasue ID's start at 1 and index's start at 0
         speedRow.appendChild(deleteButton);
