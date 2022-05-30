@@ -15,25 +15,11 @@ document.addEventListener("DOMContentLoaded", function () {
         var row = document.createElement("div");
         row.setAttribute("class", "row");
         row.setAttribute("id", "row-" + newButtonRowId);
-        
-        var deleteButton = document.createElement("div");
-        deleteButton.setAttribute("id", "delete-button-" + newButtonRowId);
-        deleteButton.setAttribute("class", "delete-row-button delete-X-button");
-        deleteButton.addEventListener("click", () => DeleteRowButton("row-" + newButtonRowId));
-        deleteButton.innerText = "X"
-        row.appendChild(deleteButton);
-        
-        var input = document.createElement("input");
-        input.setAttribute("type", "text");
-        input.setAttribute("class", "title-input");
-        input.setAttribute("placeholder", "set speed for");
-        input.setAttribute("id", "input-" + newButtonRowId);
-        input.setAttribute("value", rowDataObject ? rowDataObject.inputValue : "");
-        input.addEventListener("blur", () => saveAndApplyChanges());
-        row.appendChild(input);
+
 
         var select = document.createElement("select");
         select.setAttribute("id", "select-" + newButtonRowId);
+        select.setAttribute("class", "select")
         var optionChannel = document.createElement("option");
         optionChannel.setAttribute("value", "channel");
         optionChannel.innerText = "Channel";
@@ -50,8 +36,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         select.addEventListener("change", () => saveAndApplyChanges())
         row.appendChild(select);
+
+        var input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.setAttribute("class", "title-input");
+        input.setAttribute("placeholder", "set speed for");
+        input.setAttribute("id", "input-" + newButtonRowId);
+        input.setAttribute("value", rowDataObject ? rowDataObject.inputValue : "");
+        input.addEventListener("blur", () => saveAndApplyChanges());
+        row.appendChild(input);
         
 
+        var deleteButton = document.createElement("i");
+        deleteButton.setAttribute("id", "delete-button-" + newButtonRowId);
+        deleteButton.setAttribute("class", "delete-X-button fa fa-trash");
+        deleteButton.addEventListener("click", () => DeleteRowButton("row-" + newButtonRowId));
+        row.appendChild(deleteButton);
+        
         var customs_element = document.getElementById(targetContentColumnId);
         customs_element.insertBefore(
             row,

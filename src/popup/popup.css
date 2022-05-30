@@ -31,6 +31,10 @@ input {
 .delete-X-button {
     font-size: 18px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: #d32f2f;
+    margin: 0 5px;
 }
 
 .new-row-button {
@@ -58,11 +62,10 @@ input {
 }
 
 .title-input {
-    margin: 0 10px;
+    margin: 0 5px;
 }
 
-.delete-row-button {
-    display: flex;
-    align-items: center;
-    color: #d32f2f;
+
+.select {
+    margin: 0 5px;
 }
