@@ -63,10 +63,21 @@ Steps to work through
 - [X] Case insensitivity
 - [] injection of text part not working consistently
 - [] pretty ifying
+    - [X] Delete All text -> Delete Section
+    - [X] Trashcan Icon instead of X
+    - [X] Re-order Speed row elements
+    - []  Modern Scrollbar
+    - []  Hover State and click down state for buttons
+    - []  Tool tips?
+    - []  "Speed Section" Big Bold dividers -> with maintained functionality (see test cases)
+    - []  Native HTML dialog to grab a user inputed title to add to the Speed Section text above
+    - []  Undo popup and functionality after deleting row and or section
+- [] Tests
 
 - [] Every save to storage should trigger the function that sets Speed in the likely case you're on a page you want to be a different speed already -> see background onChange handler
 - [] Art assets
 - [] Publish
+- [] empty tags for speed input and other input are handled better
 
 Extra
 - [] Make it perty 
